@@ -1,4 +1,5 @@
 const { src, dest, series, watch } = require(`gulp`),
+    gulp = require(`gulp`),
     del = require(`del`),
     babel = require(`gulp-babel`),
     htmlCompressor = require(`gulp-htmlmin`),
@@ -42,33 +43,9 @@ async function allBrowsers () {
     ];
 }
 
-
-// let paths = {
-//     html: `./`,
-//     styles: `css`,
-//     js: `js`,
-// };
-
-// let copyUnprocessedAssets = () => {
-//     return src([
-//         `${paths.dev}/*.*`,
-//         `${paths.dev}/**`,
-//         `${paths.html}/`,
-//         `${paths.html}/*.*`,
-//         `${paths.html}/**`,
-//         `${paths.images}/`,
-//         `${paths.images}/*.*`,
-//         `${paths.images}/**`,
-//         `${paths.js}/`,
-//         `${paths.js}/*.*`,
-//         `${paths.js}/**`,
-//         `${paths.styles}/**`
-//     ], {dot: true});
-// };
-
 let validateHTML = () => {
-    return src([
-        `*.html`])
+    return gulp.src(
+        `*.html`)
         .pipe(htmlValidator());
 };
 
@@ -198,7 +175,7 @@ exports.lintJS = lintJS;
 exports.lintCSS = lintCSS;
 exports.listTasks = listTasks;
 exports.default = series(
-    // validateHTML,
+    validateHTML,
     lintCSS,
     lintJS,
     transpileJSForDev,
